@@ -5,11 +5,12 @@ var path = process.argv[2]
 var ext = process.argv[3]
 
 function callback(err, data) {
-	if(!err) {
-		data.forEach((name, index) =>{
-			console.log(name);
-		})
+	if(err) {
+		return console.error('There was an error:', err)
 	}
+	data.forEach((name, index) =>{
+		console.log(name);
+	})
 }
 
 step6module(path, ext, callback)

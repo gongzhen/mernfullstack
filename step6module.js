@@ -1,24 +1,16 @@
-module.exports = function (dir, ext, callback) {
+var fs = require('fs')
+var path = require('path')
 
-	var fs = require('fs')
+module.exports = function (dir, ext, callback) {
 
 	fs.readdir(dir, function (err, data){
 		if(err) {
-			callback(err)
-		} else {
-			countFile(data, ext, callback)		
-		}		
-	})
-}
+			return callback(err)
+		} 
 
-var countFile = (list, ext, callback) => {
-	var path = require('path')
-	var res = []
-	list.forEach((name, index) => {
-		if(path.extname(name) == '.' + ext) {
-			res.push(name)
-		}
-		
+		list = data.filter((file)=>{
+			return path.extname(file) === '.' + ext
+		})		
+		callback(null, list)
 	})
-	callback(null, res)
 }
